@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+
+<config>
+    <sections>
+       <hipay translate="label" module="hipaymod">
+            <label>Hipay</label>
+            <tab>sales</tab>
+            <class>hipay-section</class>
+            <header_css>hipay-header</header_css>
+            <frontend_type>text</frontend_type>
+            <sort_order>345</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <howto translate="label" module="hipaymod">
+                    <label>How to setup Hipay</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <groupcomment translate="label">
+                            <frontend_type>note</frontend_type>
+                            <frontend_model>hipaymod/commentbox</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </groupcomment>
+                    </fields>
+                </howto>
+                <general translate="label" module="hipaymod">
+                    <label>General Extension Settings</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <groupcomment translate="label">
+                            <frontend_type>note</frontend_type>
+                            <frontend_model>hipaymod/commentbox</frontend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </groupcomment>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                         <allowspecific translate="label">
+                            <label>Payment from applicable countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>40</sort_order>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Payment from specific countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>50</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </specificcountry>
+                        <sort_order translate="label">
+                            <label>Sort order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sort_order>
+                    </fields>
+                </general>            
+                <accountsettings translate="label" module="hipaymod">    
+                    <label>Hipay Account</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <groupcomment translate="label">
+                            <frontend_type>note</frontend_type>
+                            <frontend_model>hipaymod/commentbox</frontend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </groupcomment>
+                        <accountid translate="label comment">
+                            <label>Hipay Account</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[hipay-account-field-comment]]></comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </accountid>
+                        <merchantpassword translate="label comment">
+                            <label>Hipay Merchant Password</label>
+                            <frontend_type>password</frontend_type>
+                            <comment><![CDATA[hipay-merchant-password-comment]]></comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </merchantpassword>
+                        <merchantsiteid translate="label comment">
+                            <label>Merchant Site Id</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[merchant-site-id-comment]]></comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </merchantsiteid>
+                        <ordercategory translate="label comment">
+                            <label>Order Category</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>hipaymod/category</source_model>
+                            <comment><![CDATA[ordercategory-comment]]></comment>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ordercategory>
+<!--                        
+                        <accountcurrency translate="label comment">
+                            <label>Account Currency</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>hipaymod/currency</source_model> 
+                            <comment>
+                                <![CDATA[Select the same currency as in the Hipay account.]]>
+                             </comment>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </accountcurrency>
+-->                        
+                        <ageclassification translate="label comment">
+                            <label>Age Classification</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>hipaymod/age</source_model> 
+                            <comment><![CDATA[ageclassification-comment]]></comment>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ageclassification>
+                        <notificationemail translate="label comment">
+                            <label>Notification E-Mail Address</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[notificationemail-comment]]></comment>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </notificationemail>
+                    </fields>
+                </accountsettings>
+                <extendedaccountsettings translate="label" module="hipaymod">   
+                    <label>Optional Settings</label>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <groupcomment translate="label">
+                            <frontend_type>note</frontend_type>
+                            <frontend_model>hipaymod/commentbox</frontend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </groupcomment>
+                        <accountmode translate="label comment">
+                            <label>Account Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>hipaymod/accountmode</source_model> 
+                            <comment><![CDATA[accountmode-comment]]></comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </accountmode>
+                        <logourl translate="label comment">
+                            <label>Merchant Logo URL</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[logourl-comment]]></comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logourl>                                            
+                        <itemaccountid translate="label comment">
+                            <label>Item Account</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[itemaccountid-comment]]></comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </itemaccountid>
+<!-- Not yet supported                       
+                        <taxaccountid translate="label comment">
+                            <label>Tax Account</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>
+                                <![CDATA[Account ID of the account into which the tax amount will be deposited.<br />
+                                         <span class="notice">If this field is left empty, the <span 
+                                         style="font-style: italic;">Hipay Account</span> is used.</span>]]>
+                            </comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </taxaccountid>
+                        <insuranceaccountid translate="label comment">
+                            <label>Insurance Account</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>
+                                <![CDATA[Account ID of the account into which the insurance amount will be deposited.<br />
+                                         <span class="notice">If this field is left empty, the <span 
+                                         style="font-style: italic;">Hipay Account</span> is used.</span>]]>
+                            </comment>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </insuranceaccountid>
+                        <fixcostaccountid translate="label comment">
+                            <label>Fix Cost Account</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>
+                                <![CDATA[Account ID of the account into which the fix cost amount will be deposited.<br />
+                                         <span class="notice">If this field is left empty, the <span 
+                                         style="font-style: italic;">Hipay Account</span> is used.</span>]]>
+                            </comment>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fixcostaccountid>
+-->                        
+                        <shippingaccountid translate="label comment">
+                            <label>Shipping Account</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[shippingaccountid-comment]]></comment>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </shippingaccountid>
+                    </fields>
+                </extendedaccountsettings>
+                <support translate="label comment">
+                    <label>Help and Support</label>
+                    <sort_order>60</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <groupcomment translate="label">
+                            <frontend_type>note</frontend_type>
+                            <frontend_model>hipaymod/commentbox</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </groupcomment>
+                    </fields>
+                </support>
+            </groups>
+        </hipay>
+    </sections>
+</config>

@@ -1,0 +1,86 @@
+@CHARSET "UTF-8";
+
+/* ## SECTION ********************************************* ## */
+
+ul.tabs a.hipay-section {
+    background:url("images/tabs_span_bg.gif") repeat-x scroll 0 100% transparent;
+    border-bottom:medium none;
+    padding:0.5em 0.5em 0.28em 1.5em;
+}
+ul.tabs a.hipay-section:hover {
+    background-color:#D8E6E6 !important;
+    /*background-image:url("images/tabs_link_over_bg.gif") !important;*/
+    padding:0.5em 0.5em 0.28em 1.5em;
+}
+ul.tabs a.hipay-section.active {
+    background:none repeat scroll 0 0 #FFFFFF !important;
+    /*background-color:#FFFFFF;*/
+    border-bottom:1px solid #BEBEBE;
+}
+
+ul.tabs a.hipay-section span {
+    background:url("images/hipay_section_logo.png") no-repeat scroll 0 0 transparent;
+    height:0;
+    overflow:hidden;
+    padding:25px 0 0;
+    width:196px;
+}
+ul.tabs a.hipay-section:hover span {
+    background:url("images/hipay_section_logo_hover.png") no-repeat scroll 0 0 transparent;
+} 
+ul.tabs a.hipay-section.active span, 
+ul.tabs a.hipay-section.active:hover span {
+	background:url("images/hipay_section_logo_hover.png") no-repeat scroll 0 0 transparent;
+	padding:0.5em 0.5em 0.28em 1.5em;
+    background-color:#FFFFFF;
+    font-weight:bold;
+    
+    height:0;
+    overflow:hidden;
+    padding:25px 0 0;
+    width:196px;
+}
+
+/* ## SECTION NOTICE ************************************** ## */
+
+.hipay-notice { 
+	background:url(images/hipay_section_logo.gif) no-repeat 5px center #eaf0ee; 
+	border:1px solid #ccc; 
+	margin-bottom:10px; 
+	padding:10px 5px 5px 115px;
+	zoom: 1; /* for IE */ 
+}
+.hipay-notice h4,
+.hipay-notice p { 
+	margin:0; 
+}
+.hipay-notice h2 { 
+	color:#444; 
+	font-size:1.4em; 
+	line-height:1em; 
+}
+.hipay-notice a { 
+	text-decoration:none; 
+}
+
+/* ## SECTION CONTENT ************************************* ## */
+
+h3.hipay-header { 
+	background:url(images/hipay_section_logo.png) no-repeat 0 0; 
+	height:0; 
+	overflow:hidden; 
+	padding:25px 0 0; 
+	width:196px; 
+}
+
+a.hipay-pdf-link {
+	background:url(images/pdf_16x16.png) no-repeat left;
+	padding-left: 18px;
+}
+
+div.hipay-commentbox { 
+	background-color:#D1DEDF; 
+	border:2px solid #6F8992; 
+	padding:10px; 
+	margin-bottom:10px;
+}

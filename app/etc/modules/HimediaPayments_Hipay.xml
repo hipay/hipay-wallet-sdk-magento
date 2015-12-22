@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<HimediaPayments_Hipay>
+			<active>true</active>
+			<codePool>local</codePool>
+		</HimediaPayments_Hipay>
+	</modules>
+</config>

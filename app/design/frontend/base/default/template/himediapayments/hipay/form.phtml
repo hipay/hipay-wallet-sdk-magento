@@ -1,0 +1,174 @@
+<?php
+/**
+ * Hipay
+ *
+ * NOTICE OF LICENSE
+ *
+ * Copyright (c) 2010, HPME - HI-MEDIA PORTE MONNAIE ELECTRONIQUE (Groupe Hi-Media, Seed Factory, 19 Avenue des Volontaires, 1160 Bruxelles - Belgium)
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met:
+ * 
+ *  - Redistributions of source code must retain the above copyright notice, 
+ *    this list of conditions and the following disclaimer.
+ *  - Redistributions in binary form must reproduce the above copyright notice, 
+ *    this list of conditions and the following disclaimer in the documentation 
+ *    and/or other materials provided with the distribution.
+ *  - Neither the name of the Hipay and HPME - HI-MEDIA PORTE MONNAIE ELECTRONIQUE 
+ *    nor the names of its contributors may be used to endorse or promote products 
+ *    derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * @category   Paymentnetwork
+ * @package    Paymentnetwork_Hipay
+ * @copyright  Copyright (c) 2010 HPME - HI-MEDIA PORTE MONNAIE ELECTRONIQUE
+ * @license    http://www.opensource.org/licenses/bsd-license.php  The BSD License
+ */ 
+?>
+
+<?php
+$_code = $this->getMethodCode();
+?>
+
+<style type="text/css">
+
+.hipay_infobox_head {
+	background-image: url("<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/base/default/images/himediapayments/hipay/hipay-frame-top.png");
+	background-attachment: scroll;
+	background-position: top;
+	background-repeat: no-repeat;
+    background-color: transparent;
+    overflow:hidden;
+    width:555px;
+    padding:0;
+    margin:0;
+    min-height:255px;
+}
+
+.hipay_infobox_bottom {
+	background:url("<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/base/default/images/himediapayments/hipay/hipay-frame-bottom.png") bottom no-repeat scroll transparent;
+    overflow:hidden;
+    width:555px;
+    padding:0;
+    margin:0;
+}
+
+.hipay_infobox_headline {
+	color:#007CC1;
+	font-family:Helvetica;
+	font-size:16px;
+	padding-left:102px;
+	padding-top:14px;
+}
+
+.hipay_process_note {
+	margin-bottom:15px;
+}
+
+.hipay_infobox_content {
+	margin-top:25px;
+	padding: 5px 13px;
+}
+
+.hipay_infobox_content .homeBlue {
+	color:#007CC1;
+}
+.hipay_infobox_content .homeBlue li {
+	list-style:disc inside none;
+	display:list-item;
+	margin-left:10px;
+	margin-top:1px;
+	margin-bottom:1px;
+}
+.hipay_infobox_content .li-home-text {
+	color:#000000;
+	vertical-align:middle;
+}
+.hipay_infobox_content .payment_methods {
+	padding-bottom:5px;
+	padding-left:5px;
+	padding-right:5px;
+	padding-top:15px;
+}
+.hipay_infobox_content .payment_methods>img {
+	float: left;
+	margin-bottom:5px;
+	margin-right:5px;
+}
+
+.hipay_infobox_content .red_line {
+	border-top: 1px #0C7BBB solid;
+    width:100%;
+    height:2px;
+    padding:0;
+    margin:0;
+    clear: both;
+}
+.hipay_infobox_content .provider_infos {
+	text-align:center;
+	color:#666666;
+	font-size:9px;
+	padding:0 5px;
+}
+.hipay_infobox_content .provider_infos a {
+	color:#666666;
+	text-decoration:none;
+}
+.hipay_infobox_content .provider_infos a:hover {
+	color:#666666;
+	text-decoration:underline;
+}
+.hipay_infobox_content .provider_infos span {
+	margin-left:8px;
+}
+</style>
+
+<ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none">
+    <li>
+    	<div class="hipay_process_note">
+    		<?php echo Mage::helper('hipaymod')->__('You will be redirected to our secure payment page when you complete your order.') ?>
+    	</div>
+    
+       	<div class="hipay_infobox_bottom">
+       		<div class="hipay_infobox_head">
+       		<div class="hipay_infobox_headline">
+       			<?php echo Mage::helper('hipaymod')->__('Secure online payment solution') ?>
+       		</div>
+	       	<div class="hipay_infobox_content">
+	        	<?php echo Mage::helper('hipaymod')->__('This is what you can expect when you pay with hipay:') ?>
+	       	
+				<ul class="homeBlue">
+					<li><span class="li-home-text"><?php echo Mage::helper('hipaymod')->__('text_1') ?></span></li>
+					<li><span class="li-home-text"><?php echo Mage::helper('hipaymod')->__('text_2') ?></span></li>
+					<li><span class="li-home-text"><?php echo Mage::helper('hipaymod')->__('text_3') ?></span></li>
+					<li><span class="li-home-text"><?php echo Mage::helper('hipaymod')->__('text_4') ?></span></li>
+					<li><span class="li-home-text"><?php echo Mage::helper('hipaymod')->__('text_5') ?></span>
+					<div class="payment_methods">						
+						<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/base/default/images/himediapayments/hipay/payment_methods/logos-magento-wallet.png">
+					</div>
+					</li>
+				</ul>
+				<div class="red_line"></div>
+				<div class="provider_infos">
+					<a href="https://www.hipay.com/qui-sommes-nous/" target="_blank"><?php echo Mage::helper('hipaymod')->__('About us') ?></a> -
+					<a href="https://www.hipay.com/nos-bureaux/" target="_blank"><?php echo Mage::helper('hipaymod')->__('Contact') ?></a>
+				</div>
+	       	</div>
+       		
+       		</div>
+       	</div>
+    </li>
+</ul>
+
