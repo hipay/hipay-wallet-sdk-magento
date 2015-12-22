@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<config>
+
+	<modules>
+		<HimediaPayments_Hipay>
+			<version>1.0.15</version>
+		</HimediaPayments_Hipay>
+	</modules>
+
+	<global>
+		<models>
+			<hipaymod>
+				<class>HimediaPayments_Hipay_Model</class>
+			</hipaymod>
+		</models>
+		<blocks>
+			<hipaymod>
+				<class>HimediaPayments_Hipay_Block</class>
+			</hipaymod>
+		</blocks>
+		<helpers>
+			<hipaymod>
+				<class>HimediaPayments_Hipay_Helper</class>
+			</hipaymod>
+		</helpers>
+	</global>
+	
+	<adminhtml>
+	   <layout>
+	       <updates>
+	           <hipaymod>
+	               <file>hipaybase.xml</file>
+	           </hipaymod>
+	       </updates>
+	   </layout>
+	   <translate>
+           <modules>
+               <HimediaPayments_Hipay>
+                   <files>
+                       <default>HimediaPayments_Hipay.csv</default>
+                   </files>
+               </HimediaPayments_Hipay>
+           </modules>
+       </translate>
+       <acl>
+	       <resources>
+	           <all>
+	               <title>Allow Everything</title>
+	           </all>
+	           <admin>
+	               <children>
+	                   <system>
+	                       <children>
+	                           <config>
+	                               <children>
+	                                   <hipay translate="title" module="hipaymod">
+	                                       <title>Hipay</title>
+	                                   </hipay>
+	                               </children>
+	                           </config>
+	                       </children>
+	                   </system>
+	               </children>
+	           </admin>
+	        </resources>
+        </acl>
+	</adminhtml>
+	
+	<frontend>
+	   <routers>
+	       <hipay>
+	           <use>standard</use>
+	           <args>
+	               <module>HimediaPayments_Hipay</module>
+	               <frontName>hipay</frontName>
+	           </args>
+	       </hipay>
+	   </routers>
+	   <layout>
+	       <updates>
+	           <hipay>
+	               <file>hipay.xml</file>
+	           </hipay>
+	       </updates>
+	   </layout>
+	   <translate>
+	       <modules>
+	           <HimediaPayments_Hipay>
+	               <files>
+	                   <default>HimediaPayments_Hipay.csv</default>
+	               </files>
+	           </HimediaPayments_Hipay>
+	       </modules>
+	   </translate>
+	</frontend>
+
+	<default>
+		<payment>
+			<hipay>
+				<active>1</active>
+				<title>Hipay</title>
+				<order_status>processing</order_status>
+				<allowspecific>0</allowspecific>
+				<specificcountry></specificcountry>
+				<sort_order></sort_order>
+				<model>hipaymod/method_hipay</model>
+			</hipay>
+		</payment>
+	</default>
+
+</config>
