@@ -47,9 +47,29 @@ class HimediaPayments_Hipay_Model_Category
 {
     public function toOptionArray()
     {
-    	$merchantSiteId = Mage::getStoreConfig('hipay/accountsettings/merchantsiteid');
-    	$accountMode    = Mage::getStoreConfig('hipay/extendedaccountsettings/accountmode');
+    	// récupération du bon store 
+    	if (strlen($code = Mage::getSingleton('adminhtml/config_data')->getStore()))
+		{
+		    $store_id = Mage::getModel('core/store')->load($code)->getId();
+		}
+		elseif (strlen($code = Mage::getSingleton('adminhtml/config_data')->getWebsite()))
+		{
+		    $website_id = Mage::getModel('core/website')->load($code)->getId();
+		    $store_id = Mage::app()->getWebsite($website_id)->getDefaultStore()->getId();
+		}
+		else // default level
+		{
+		    $store_id = 0;
+		}
+    	$merchantSiteId = Mage::getStoreConfig('hipay/accountsettings/merchantsiteid',$store_id);
+    	$accountMode    = Mage::getStoreConfig('hipay/extendedaccountsettings/accountmode',$store_id);
     	
+    	$nomLog = 'hipay-wallet-'.date('Ymd').'.log';
+    	Mage::log('############################', null, $nomLog);
+    	Mage::log('Récupération StoreId = ' . $store_id, null, $nomLog);
+    	Mage::log('Récupération MerchantSiteId = ' . $merchantSiteId, null, $nomLog);
+    	Mage::log('Récupération accountMode = ' . $accountMode, null, $nomLog);
+
     	if(empty($merchantSiteId) || empty($accountMode)) 
     	{
     		return array(
@@ -59,13 +79,13 @@ class HimediaPayments_Hipay_Model_Category
     	else 
     	{
 			$categoryUrl   = Mage::helper('hipaymod')->getHipayCategoryUrl($accountMode) . $merchantSiteId;
-			//$response 	   = Mage::helper('hipaymod')->sendRestCall($categoryUrl);   	
-			
+			Mage::log('categoryUrl = ' . $categoryUrl, null, $nomLog);
+
 			$optionList = array();
-			//if( $this->analyzeCategoryResponseXML($response, $optionList) )
 			if( $this->fillCategoryList($categoryUrl, $optionList) )
 			{
-				//Mage::log($optionList);
+				Mage::log('optionList = ', null, $nomLog);
+				Mage::log($optionList, null, $nomLog);
 				return $optionList;
 			}
 			else 

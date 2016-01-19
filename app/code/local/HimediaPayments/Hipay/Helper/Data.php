@@ -217,45 +217,41 @@ class HimediaPayments_Hipay_Helper_Data extends Mage_Core_Helper_Abstract
 	 */
 	protected function setupParams(Mage_Sales_Model_Order $order, $token)
 	{
-		$accountId		    = Mage::getStoreConfig('hipay/accountsettings/accountid');
-		$merchantPassword   = Mage::getStoreConfig('hipay/accountsettings/merchantpassword');
-		$merchantSiteId     = Mage::getStoreConfig('hipay/accountsettings/merchantsiteid');
+		$websiteId 			= Mage::app()->getStore()->getStoreId();//Mage::app()->getStore()->getWebsiteId();
+		$accountId		    = Mage::getStoreConfig('hipay/accountsettings/accountid',$websiteId);
+		$merchantPassword   = Mage::getStoreConfig('hipay/accountsettings/merchantpassword',$websiteId);
+		$merchantSiteId     = Mage::getStoreConfig('hipay/accountsettings/merchantsiteid',$websiteId);
 		//$accountCurrency    = Mage::getStoreConfig('hipay/accountsettings/accountcurrency');
 		$orderCurrency 		= $order->getOrderCurrency()->getData("currency_code");
-		$ageClassification  = Mage::getStoreConfig('hipay/accountsettings/ageclassification');
-		$notificationEmail  = Mage::getStoreConfig('hipay/accountsettings/notificationemail');
+		$ageClassification  = Mage::getStoreConfig('hipay/accountsettings/ageclassification',$websiteId);
+		$notificationEmail  = Mage::getStoreConfig('hipay/accountsettings/notificationemail',$websiteId);
 
-		$logoUrl			= Mage::getStoreConfig('hipay/extendedaccountsettings/logourl');
+		$logoUrl			= Mage::getStoreConfig('hipay/extendedaccountsettings/logourl',$websiteId);
 		
-		$itemAccountId		= Mage::getStoreConfig('hipay/extendedaccountsettings/itemaccountid');
+		$itemAccountId		= Mage::getStoreConfig('hipay/extendedaccountsettings/itemaccountid',$websiteId);
 		$taxAccountId		= ""; //Mage::getStoreConfig('hipay/extendedaccountsettings/taxaccountid');
 		$insuranceAccountId	= ""; //Mage::getStoreConfig('hipay/extendedaccountsettings/insuranceaccountid');
 		$fixcostAccountId	= ""; //Mage::getStoreConfig('hipay/extendedaccountsettings/fixcostaccountid');
-		$shippingAccountId	= Mage::getStoreConfig('hipay/extendedaccountsettings/shippingaccountid');
+		$shippingAccountId	= Mage::getStoreConfig('hipay/extendedaccountsettings/shippingaccountid',$websiteId);
 		
 		$itemAccountId 		= (empty($itemAccountId)      ? $accountId     : $itemAccountId);
 		$taxAccountId 		= (empty($taxAccountId) 	  ? $itemAccountId : $taxAccountId);
 		$insuranceAccountId = (empty($insuranceAccountId) ? $itemAccountId : $insuranceAccountId);
 		$fixcostAccountId 	= (empty($fixcostAccountId)   ? $itemAccountId : $fixcostAccountId);
 		$shippingAccountId	= (empty($shippingAccountId)  ? $itemAccountId : $shippingAccountId);
-		
-// ## REMOVE TEST ##
-//		echo "<hr>"  
-//		     ."accound id:" . $accountId . ",<br />"
-//             ."pw:" . $merchantPassword . ",<br />"
-//             ."site:" . $merchantSiteId . ",<br />"
-//             ."min age:" . $ageClassification . ",<br />"
-//             ."currency:" . $accountCurrency . ",<br />"
-//             ."ack email:" . $notificationEmail . ",<br />"
-//             ."logo url:" . $logoUrl . ",<br />"
-//             
-//             ."item account:" . $itemAccountId . ",<br />"
-//             ."tax account:" . $taxAccountId . ",<br />"
-//             ."insurance account:" . $insuranceAccountId . ",<br />"
-//             ."fixcost account:" . $fixcostAccountId . ",<br />"
-//             ."shipping account:" . $shippingAccountId . "<br />"
-//             ."<hr>";  
-// ## REMOVE TEST - END ##		
+
+		$nomLog = 'hipay-wallet-payment-'.date('Ymd').'.log';
+    	Mage::log('############################', null, $nomLog);
+    	Mage::log('websiteId = ' . $websiteId, null, $nomLog);
+    	Mage::log('accountId = ' . $accountId, null, $nomLog);
+    	Mage::log('merchantPassword = ' . $merchantPassword, null, $nomLog);
+    	Mage::log('merchantSiteId = ' . $merchantSiteId, null, $nomLog);
+    	Mage::log('orderCurrency = ' . $orderCurrency, null, $nomLog);
+    	Mage::log('ageClassification = ' . $ageClassification, null, $nomLog);
+    	Mage::log('notificationEmail = ' . $notificationEmail, null, $nomLog);
+    	Mage::log('logoUrl = ' . $logoUrl, null, $nomLog);
+    	Mage::log('itemAccountId = ' . $itemAccountId, null, $nomLog);
+    	Mage::log('shippingAccountId = ' . $shippingAccountId, null, $nomLog);	
 		
 		$params = new HIPAY_MAPI_PaymentParams();
 		
