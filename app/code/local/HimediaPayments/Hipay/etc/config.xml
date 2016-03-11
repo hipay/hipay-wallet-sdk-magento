@@ -98,7 +98,7 @@
 		<payment>
 			<hipay>
 				<active>1</active>
-				<title>Hipay</title>
+				<title>Secure online payment</title>
 				<order_status>processing</order_status>
 				<allowspecific>0</allowspecific>
 				<specificcountry></specificcountry>
