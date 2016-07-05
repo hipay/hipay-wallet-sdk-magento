@@ -54,7 +54,7 @@ $_code = $this->getMethodCode();
     width:555px;
     padding:0;
     margin:0;
-    min-height:255px;
+    min-height:200px;
 }
 
 .hipay_infobox_bottom {
@@ -143,30 +143,14 @@ $_code = $this->getMethodCode();
     
        	<div class="hipay_infobox_bottom">
        		<div class="hipay_infobox_head">
-       		<div class="hipay_infobox_headline">
-       			<?php echo Mage::helper('hipaymod')->__('Secure online payment solution') ?>
-       		</div>
-	       	<div class="hipay_infobox_content">
-	        	<?php echo Mage::helper('hipaymod')->__('This is what you can expect when you pay with hipay:') ?>
-	       	
-				<ul class="homeBlue">
-					<li><span class="li-home-text"><?php echo Mage::helper('hipaymod')->__('text_1') ?></span></li>
-					<li><span class="li-home-text"><?php echo Mage::helper('hipaymod')->__('text_2') ?></span></li>
-					<li><span class="li-home-text"><?php echo Mage::helper('hipaymod')->__('text_3') ?></span></li>
-					<li><span class="li-home-text"><?php echo Mage::helper('hipaymod')->__('text_4') ?></span></li>
-					<li><span class="li-home-text"><?php echo Mage::helper('hipaymod')->__('text_5') ?></span>
+	       		<div class="hipay_infobox_headline">
+	       			<?php echo Mage::helper('hipaymod')->__('Secure online payment solution') ?>
+	       		</div>
+		       	<div class="hipay_infobox_content">	       	
 					<div class="payment_methods">						
 						<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/base/default/images/himediapayments/hipay/payment_methods/logos-magento-wallet.png">
 					</div>
-					</li>
-				</ul>
-				<div class="red_line"></div>
-				<div class="provider_infos">
-					<a href="https://www.hipay.com/qui-sommes-nous/" target="_blank"><?php echo Mage::helper('hipaymod')->__('About us') ?></a> -
-					<a href="https://www.hipay.com/nos-bureaux/" target="_blank"><?php echo Mage::helper('hipaymod')->__('Contact') ?></a>
-				</div>
-	       	</div>
-       		
+		       	</div>       		
        		</div>
        	</div>
     </li>

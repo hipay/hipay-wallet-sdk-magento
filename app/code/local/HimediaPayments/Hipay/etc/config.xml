@@ -3,7 +3,7 @@
 
 	<modules>
 		<HimediaPayments_Hipay>
-			<version>1.1.0</version>
+			<version>1.1.1</version>
 		</HimediaPayments_Hipay>
 	</modules>
 
@@ -98,7 +98,7 @@
 		<payment>
 			<hipay>
 				<active>1</active>
-				<title>Hipay</title>
+				<title>Secure online payment</title>
 				<order_status>processing</order_status>
 				<allowspecific>0</allowspecific>
 				<specificcountry></specificcountry>
