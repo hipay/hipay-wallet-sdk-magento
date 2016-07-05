@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y mysql-client-5.5 libxml2-dev
 RUN docker-php-ext-install soap
 
 COPY ./bin/conf /tmp
-#COPY ./bin/hipay_tpp /var/www/htdocs
+COPY ./bin/hipay_wallet /var/www/htdocs
 
 COPY ./bin/install-magento /usr/local/bin/install-magento
 
