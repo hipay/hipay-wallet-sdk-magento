@@ -1,6 +1,6 @@
 web:
   container_name: jira-mgwallet.hipay-pos-platform.com
-  image: hipay/magento_wallet:WALMAG-10
+  image: hipay/magento_wallet:walmag-10
   ports:
     - "80"
   links:
