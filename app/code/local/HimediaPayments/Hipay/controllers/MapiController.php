@@ -444,6 +444,13 @@ class HimediaPayments_Hipay_MapiController extends Mage_Core_Controller_Front_Ac
         														Mage_Sales_Model_Order::STATE_PROCESSING
         														)->setIsCustomerNotified(true);
         						$order->save();
+
+								$invoice = $this->create_invoice($order, $transid, false);
+
+								Mage::getModel('core/resource_transaction')
+									->addObject($invoice)->addObject($invoice->getOrder())
+									->save();
+								
         						Mage::log("saved Order");
         						$order->sendNewOrderEmail();
         						Mage::log("send new Order Mail");
@@ -625,6 +632,37 @@ class HimediaPayments_Hipay_MapiController extends Mage_Core_Controller_Front_Ac
        	}
    		return false;
     }
+
+	/**
+	 * Create object invoice
+	 * @param Mage_Sales_Model_Order $order
+	 * @param string $transactionReference
+	 * @param boolean $capture
+	 * @param boolean $paid
+	 * @return Mage_Sales_Model_Order_Invoice $invoice
+	 */
+	protected function create_invoice($order, $transactionReference, $capture = true, $paid = false)
+	{
+		/* @var $invoice Mage_Sales_Model_Order_Invoice */
+		$invoice = $order->prepareInvoice();
+		$invoice->setTransactionId($transactionReference);
+
+		$capture_case = Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE;
+		if ($capture) {
+			$capture_case = Mage_Sales_Model_Order_Invoice::CAPTURE_ONLINE;
+		}
+		$invoice->setRequestedCaptureCase($capture_case);
+
+		$invoice->register();
+
+		$invoice->getOrder()->setIsInProcess(true);
+
+		if ($paid) {
+			$invoice->setIsPaid(1);
+		}
+
+		return $invoice;
+	}
 }
 
 	
