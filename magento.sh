@@ -29,7 +29,7 @@ elif [ "$1" = 'init-stage' ]; then
     docker-compose rm -fv
     sudo rm -Rf data/ log/ web/
     docker-compose -f docker-compose.yml -f docker-compose.stage.yml build --no-cache
-    docker-compose -f docker-compose.yml -f docker-compose.stage.yml up
+    docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
 elif [ "$1" = 'restart' ]; then
     docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 elif [ "$1" = 'logs' ]; then
