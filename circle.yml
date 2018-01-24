@@ -15,6 +15,7 @@ test:
     - ./magento.sh init-stage
     - sleep 60
     - curl --retry 30 --retry-delay 3 -v $MAGENTO_URL:$PORT_WEB
+
 #deployment:
 #  prod:
 #    branch: /.*?/
