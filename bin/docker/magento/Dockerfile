@@ -33,19 +33,19 @@ RUN rm -Rf /var/www/htdocs
 RUN rm -Rf /var/lib/mysql
 
 # COPY CONF AND HIPAY MODULE
-COPY ./bin/conf /tmp
+COPY ./bin/docker/ /tmp
 COPY ./src /tmp/src
 
 # COPY INSTALLER AND SAMPLE DATA
-COPY ./bin/install/install-magento /usr/local/bin/install-magento
+COPY ./bin/docker/magento/install/install-magento /usr/local/bin/install-magento
 RUN chmod +x /usr/local/bin/install-magento
 
-COPY ./bin/sampledata/magento-sample-data-1.9.1.0.tgz /opt/
-COPY ./bin/sampledata/magento-sample-data-1.6.1.0.tar.gz /opt/
+COPY ./bin/docker/magento/sampledata/magento-sample-data-1.9.1.0.tgz /opt/
+COPY ./bin/docker/magento/sampledata/magento-sample-data-1.6.1.0.tar.gz /opt/
 
-COPY ./bin/install/install-sampledata-1.9 /usr/local/bin/install-sampledata-1.9
+COPY ./bin/docker/magento/install/install-sampledata-1.9 /usr/local/bin/install-sampledata-1.9
 RUN chmod +x /usr/local/bin/install-sampledata-1.9
-COPY ./bin/install/install-sampledata-1.6_1.8 /usr/local/bin/install-sampledata-1.6_1.8
+COPY ./bin/docker/magento/install/install-sampledata-1.6_1.8 /usr/local/bin/install-sampledata-1.6_1.8
 RUN chmod +x /usr/local/bin/install-sampledata-1.6_1.8
 
 RUN sed -i -e 's/\/var\/www\/html/\/var\/www\/htdocs/' /etc/apache2/sites-available/000-default.conf
@@ -60,4 +60,4 @@ RUN curl -O  https://raw.githubusercontent.com/netz98/n98-magerun/master/n98-mag
 
 WORKDIR /var/www/htdocs
 
-ENTRYPOINT ["/tmp/entrypoint.sh"]
+ENTRYPOINT ["/tmp/magento/entrypoint.sh"]

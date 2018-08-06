@@ -1,0 +1,45 @@
+version: '3.3'
+
+networks:
+  wallet:
+    internal: true
+  outside:
+    external: true
+
+services:
+  web:
+    image: ${REGISTRY_URL}/${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
+    container_name: mg-wallet-magento-${CI_JOB_ID}_web
+    build:
+      context: .
+      dockerfile: bin/docker/magento/Dockerfile
+    environment:
+      - SAMPLE_DATA_VERSION=1.9
+      - MAGENTO_VERSION=1.9.2.3
+    env_file:
+      - ./bin/docker/conf/test/mage.env.sample
+      - ./bin/docker/conf/test/mysql.env.sample
+    networks:
+      wallet:
+      outside:
+        aliases:
+          - ${DOCKER_SERVICE}-${CI_JOB_ID}-web
+
+  database:
+    container_name: mg-wallet-magento-${CI_JOB_ID}_database
+    image: mysql:5.7
+    env_file:
+       - ./bin/docker/conf/test/mysql.env.sample
+    networks:
+      wallet:
+      outside:
+        aliases:
+          - ${DOCKER_SERVICE}-${CI_JOB_ID}-database
+  smtp:
+    container_name: mg-wallet-magento-${CI_JOB_ID}_smtp
+    image: hipay/mailcatcher:1.0.0
+    networks:
+      wallet:
+      outside:
+        aliases:
+          - ${DOCKER_SERVICE}-${CI_JOB_ID}-smtp

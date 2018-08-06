@@ -99,7 +99,7 @@ printf "\n${COLOR_SUCCESS} ======================================= ${NC}\n"
         printf "\n"
         echo "XDebug installation : YES "
 
-        cp -f /tmp/$ENVIRONMENT/php/php.ini /usr/local/etc/php/php.ini
+        cp -f /tmp/conf/$ENVIRONMENT/php/php.ini /usr/local/etc/php/php.ini
     else
         printf "\n${COLOR_SUCCESS} ======================================= ${NC}\n"
         printf "\n${COLOR_SUCCESS}     APPLY CONFIGURATION  $ENVIRONMENT     ${NC}\n"
@@ -110,21 +110,8 @@ printf "\n${COLOR_SUCCESS} ======================================= ${NC}\n"
         n98-magerun.phar --skip-root-check --root-dir="$MAGENTO_ROOT" dev:log --on --global
         n98-magerun.phar --skip-root-check --root-dir="$MAGENTO_ROOT" dev:log:db --off
 
-        cp -f /tmp/$ENVIRONMENT/php/php.ini /usr/local/etc/php/php.ini
+        cp -f /tmp/conf/$ENVIRONMENT/php/php.ini /usr/local/etc/php/php.ini
     fi
-
-    ################################################################################
-    # SEPCIFIC PORT CONFIGURATION
-    ################################################################################
-     if [ "$PORT_WEB" != "80" ] && [ "$ENVIRONMENT" != "production" ];then
-         sed -i -e "s/80/$PORT_WEB/" /etc/apache2/sites-available/000-default.conf
-
-         echo "Listen $PORT_WEB" >> /etc/apache2/ports.conf
-
-         if [ "$PHP_VERSION" = "5.4" ];then
-           echo "Listen $PORT_WEB" >> /etc/apache2/apache2.conf
-         fi
-     fi
 
     ################################################################################
     # CHANGE MAGENTO'S SOURCE FOR PHP7 SUPPORT

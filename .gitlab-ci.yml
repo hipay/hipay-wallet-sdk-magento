@@ -1,0 +1,88 @@
+image: hipay/gitlab-ci-base:jessie
+
+variables:
+  PROJECT_NAME_TEST:  ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}
+
+.after_template: &after_template
+  after_script:
+    - docker-compose -p $PROJECT_NAME_TEST -f docker-compose.test.yml stop
+    - docker-compose -p $PROJECT_NAME_TEST -f docker-compose.test.yml rm -fv
+    - docker rmi ${REGISTRY_URL}/${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
+    - docker network rm ${PROJECT_NAME_TEST}_wallet
+
+stages:
+ - build-test
+ - test
+ - clean-stack
+ - build
+ - deploy
+ - sync
+
+build-test:
+  stage: build-test
+  script:
+    - docker-compose -p $PROJECT_NAME_TEST -f docker-compose.test.yml build
+  allow_failure: false
+  tags:
+    - pi-commerce-no-overlay
+
+test:
+  stage: test
+  before_script:
+    - sed -i -e "s|{MAGENTO_URL}|${DOCKER_SERVICE}-${CI_JOB_ID}-web|g" bin/docker/conf/test/mage.env.sample
+    - sed -i -e "s|{MYSQL_HOST}|${DOCKER_SERVICE}-${CI_JOB_ID}-database|g" bin/docker/conf/test/mysql.env.sample
+  script:
+    - docker-compose -p $PROJECT_NAME_TEST -f docker-compose.test.yml up -d
+    - sleep 250
+    - docker-compose -p $PROJECT_NAME_TEST -f docker-compose.test.yml logs
+    - curl --retry 10 --retry-delay 20 -v http:\/\/${DOCKER_SERVICE}-${CI_JOB_ID}-web
+  tags:
+    - pi-commerce-no-overlay
+  allow_failure: true
+
+clean-stack-test:
+  stage: clean-stack
+  script:
+    - echo "Clean stack test"
+  <<: *after_template
+  tags:
+    - pi-commerce-no-overlay
+  when: always
+
+build:
+  stage: build
+  script:
+    - docker-compose -f docker-compose.acceptance.yml build
+    - docker-compose -f docker-compose.acceptance.yml push
+    - docker rmi ${REGISTRY_URL}/${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
+  tags:
+    - pi-commerce-no-overlay
+
+deploy2recette:
+  stage: deploy
+  script:
+    - echo "Deploy from registry"
+      # Substitute env variables which dont exists on the distant machine
+    - sed -i -e "s|\${DOCKER_STACK}|$DOCKER_STACK|g" docker-compose.acceptance.yml
+    - sed -i -e "s|\${DOCKER_SERVICE}|$DOCKER_SERVICE|g" docker-compose.acceptance.yml
+    - sed -i -e "s|\${CI_COMMIT_REF_SLUG}|$CI_COMMIT_REF_SLUG|g" docker-compose.acceptance.yml
+    - sed -i -e "s|\${CI_JOB_ID}|$CI_JOB_ID|g" docker-compose.acceptance.yml
+    - sed -i -e "s|\${REGISTRY_URL}|$REGISTRY_URL|g" docker-compose.acceptance.yml
+    - sed -i -e "s|{MAGENTO_URL}|${DOCKER_STACK}-${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}.hipay-pos-platform.com|g" bin/docker/conf/acceptance/mage.env.sample
+    - sed -i -e "s|{MYSQL_HOST}|${DOCKER_SERVICE}-${CI_JOB_ID}-database|g" bin/docker/conf/acceptance/mysql.env.sample
+      # Change path for relative path to environment files
+    - sed -i -e "s|./bin/docker/conf/acceptance/mysql.env.sample|mysql.env.sample|g" docker-compose.acceptance.yml
+    - sed -i -e "s|./bin/docker/conf/acceptance/mage.env.sample|mage.env.sample|g" docker-compose.acceptance.yml
+      # Push file on distant machine and launch deploy
+    - bash /tools/deployToDockerMachine.sh -e ./bin/docker/conf/acceptance/mysql.env.sample -e ./bin/docker/conf/acceptance/mage.env.sample -s docker-compose.acceptance.yml -n $DOCKER_STACK-$DOCKER_SERVICE-$CI_COMMIT_REF_SLUG
+  allow_failure: false
+  tags:
+    - pi-commerce-no-overlay
+
+sync:
+  stage: sync
+  script:
+  - git clone --mirror https://$GITLAB_USER:$GITLAB_PASSWORD@gitlab.hipay.org/pi-ecommerce/hipay-wallet-sdk-magento.git
+  - cd hipay-wallet-sdk-magento.git
+  - git push --mirror https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/hipay/hipay-wallet-sdk-magento.git
+  allow_failure: true
